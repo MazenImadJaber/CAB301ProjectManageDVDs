@@ -14,6 +14,18 @@ namespace CAB301ProjectManageDVDs
         public string password;
         public string phoneNumber;
         MovieCollection borrowedMovies = new MovieCollection();
+        /// <summary>
+        /// 
+        /// Memeber Class constructor 
+        /// </summary>
+        /// <param name="staff"></param>
+        /// is this member a staff member
+        /// <param name="FirstName"></param>
+        /// first name
+        /// <param name="LastName"></param>
+        /// last name 
+        /// <param name="phoneNumber"></param>
+        /// phone number in string represntation 
         public Member(bool staff, string FirstName, String LastName,string phoneNumber)
         {
             this.Staff = staff;
@@ -34,6 +46,13 @@ namespace CAB301ProjectManageDVDs
                 password = "0000";
             }
         }
+        /// <summary>
+        /// set member password
+        /// </summary>
+        /// <param name="password"></param>
+        /// a four digit int password in string form
+        /// <returns></returns>
+        /// retuns true if successful 
         public bool setPassword(string password)
         {
             if (password.Length == 4)
@@ -46,15 +65,39 @@ namespace CAB301ProjectManageDVDs
                 }
                else
                 {
-                    Console.WriteLine("The password can only be an integer");
+                    Console.WriteLine("The password must be four-digit integer");
                     return false;
                 }
             }
             else
             {
-                Console.WriteLine("The password is a four-digit integer");
+                Console.WriteLine("The password must be four-digit integer");
                 return false;
             }
+        }
+
+        /// <summary>
+        /// string represntation of member object
+        /// </summary>
+        /// <returns></returns>
+        public string ToString()
+        {
+            string str;
+            if (Staff)
+            {
+                 str= firstName + " " + lastName +
+                    " is a staff member, phone number: " + phoneNumber
+                     + " username: " + userName + " Password: " + password;
+            }
+            else
+            {
+                str = firstName + " " + lastName +
+                    " is a registered member, phone number: " + phoneNumber
+                    + " username: " + userName + " Password: " + password;
+
+            }
+                
+            return str;
         }
     }
  
