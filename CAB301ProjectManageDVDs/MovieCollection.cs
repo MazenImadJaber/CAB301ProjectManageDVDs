@@ -26,7 +26,8 @@ namespace CAB301ProjectManageDVDs
 
 
         int numOfMovies = 0;
-        Node root;
+        Movie[] movieArray = new Movie[100];
+        public Node root;
         public MovieCollection()
         {
             root = null;
@@ -43,11 +44,13 @@ namespace CAB301ProjectManageDVDs
         /// <param name="movie"></param>
         public void Add(Movie movie)
         {
+            movieArray[numOfMovies] = movie;
 
             if (root == null) // tree is empty 
             {
                 Node node = new Node(movie);
                 root = node;
+                numOfMovies++;
 
             }
             else
@@ -75,6 +78,7 @@ namespace CAB301ProjectManageDVDs
                     if (possition == 0)
                     {
                         current.movie.AddCopies(1);
+                        added = true;
                     }
                     if (possition == 1)
                     {
@@ -100,17 +104,25 @@ namespace CAB301ProjectManageDVDs
             return false;
         }
 
-        public Movie[] list()
+       
+        public void displayCollection(Node n)
         {
-            Movie[] list = new Movie[numOfMovies];
-            if (numOfMovies > 0)
+
+            if (n == null)
             {
-
+                if (root == null)
+                {
+                    Console.WriteLine("Collection is Empty");
+                }
+               
+                return;
             }
+               
 
-            return list;
+            displayCollection(n.left);
+            Console.WriteLine(n.movie.ToString());
+            displayCollection(n.right);
         }
-
         public void TopTen()
         {
 

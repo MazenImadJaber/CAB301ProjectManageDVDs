@@ -165,5 +165,11 @@ namespace CAB301ProjectManageDVDs
                 Console.WriteLine("Number of new copies must be a possitve intger!");
             }
         }
+        public string ToString()
+        {
+            string str = string.Format(" Movie name: {0}, Number Of Available Copies: {1}", name, numberOfAvailableCopies);
+            return str;
+
+        }
     }
 }
