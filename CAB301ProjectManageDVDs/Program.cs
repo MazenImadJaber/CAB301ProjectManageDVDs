@@ -10,6 +10,20 @@ namespace CAB301ProjectManageDVDs
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Adding a movie without input");
+            Movie a = new Movie();
+            Console.WriteLine("name: {0}", a.name);
+            Console.WriteLine("numberOfAvailableCopies: {0}", a.numberOfAvailableCopies);
+            Console.WriteLine("numberOfCopies: {0}", a.numberOfCopies);
+            Console.WriteLine("timesBorrowed: {0}", a.timesBorrowed);
+
+            Console.WriteLine("Adding Batman as a movie with title only");
+            Movie b = new Movie("BAtman");
+            Console.WriteLine("name: {0}", b.name);
+            Console.WriteLine("numberOfAvailableCopies: {0}", b.numberOfAvailableCopies);
+            Console.WriteLine("numberOfCopies: {0}", b.numberOfCopies);
+            Console.WriteLine("timesBorrowed: {0}", b.timesBorrowed);
+
             Movie queen = new Movie("Kween", 10);
             Console.WriteLine("name: {0}",queen.name);
             Console.WriteLine("numberOfAvailableCopies: {0}", queen.numberOfAvailableCopies);

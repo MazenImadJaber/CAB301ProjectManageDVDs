@@ -70,18 +70,7 @@ namespace CAB301ProjectManageDVDs
             this.timesBorrowed = 0;
             this.numberOfAvailableCopies = this.numberOfCopies;
         }
-
-
-        /// <summary>
-        /// this function returns the frequncy of borrowing
-        /// </summary>
-        /// <returns></returns>
-        /// frequncy of borrowing (number of times borrowed/number of copies;
-        public int getFrequncy()
-        {
-            return timesBorrowed;
-        }
-
+   
         /// <summary>
         /// Borrow this movies 
         /// </summary>
