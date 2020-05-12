@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAB301ProjectManageDVDs", "CAB301ProjectManageDVDs\CAB301ProjectManageDVDs.csproj", "{42D7BADD-C0AD-4706-906E-DD17215FA730}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42D7BADD-C0AD-4706-906E-DD17215FA730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D7BADD-C0AD-4706-906E-DD17215FA730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D7BADD-C0AD-4706-906E-DD17215FA730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D7BADD-C0AD-4706-906E-DD17215FA730}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A03C3640-071C-4029-BF1D-C065CB1B60E9}
+	EndGlobalSection
+EndGlobal
