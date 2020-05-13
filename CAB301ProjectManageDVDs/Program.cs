@@ -47,23 +47,59 @@ namespace CAB301ProjectManageDVDs
             DVDS.Add(new Movie("Zoroo", 1));
             DVDS.Add(new Movie("ZZZ", 1));
             DVDS.Add(new Movie("ZZZ", 2));
-            Console.WriteLine("*************************");
-            foreach (Movie m in DVDS.ToArray())
-            {
-                Console.WriteLine(m.ToString());
-            }
-            DVDS.Remove("ZZZ");
 
+
+            display(DVDS);          
+
+            DVDS.Remove("ZZZ");
             DVDS.Remove("123");
             DVDS.Remove("A");
+            DVDS.Remove("Superman");
+            display(DVDS);
+
+            DVDS.Remove("Sex and the City 1");
+            DVDS.Remove("Sex and the City 2");
+            DVDS.Remove("Moonlight");
+            display(DVDS);
 
 
-            Console.WriteLine("*************************");
-            foreach (Movie m in DVDS.ToArray())
-            {
-                Console.WriteLine(m.ToString());
-            }
+            DVDS.Remove("B");
+            display(DVDS);
+            DVDS.Remove("noon");
+            display(DVDS);
+            DVDS.Remove("Zoroo");
+            display(DVDS);
+            DVDS.Remove("Legallyblode");
+            display(DVDS);
+            DVDS.Remove("jackie");
+            display(DVDS);
+            DVDS.Remove("helloketty");
+            display(DVDS);
+            DVDS.Remove("l");
+            display(DVDS);
+            DVDS.Remove("c");
+            display(DVDS);
+            DVDS.Remove("batman");
+            display(DVDS);
             Console.ReadKey();
+        }
+
+        private static void display(MovieCollection DVDS)
+        {
+            Console.WriteLine("*************************");
+            int counter = 0;
+            Movie[] a = DVDS.ToArray();
+            
+            foreach (Movie m in a)
+            {
+                if (m != null)
+                {
+                    Console.WriteLine(m.ToString());
+                    counter++;
+                }
+            
+            }
+            Console.WriteLine("Counter:{0}", counter);
         }
     }
 }

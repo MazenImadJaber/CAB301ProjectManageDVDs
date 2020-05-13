@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -113,7 +114,7 @@ namespace CAB301ProjectManageDVDs
 
             Deque(n.left, movieArray);
             movieArray[ii++]= n.movie;
-            Deque(n.right, movieArray);
+              Deque(n.right, movieArray);
 
          
         }
@@ -129,7 +130,35 @@ namespace CAB301ProjectManageDVDs
           
                  return movieArray;
         }
-
+        private Movie RemoveMaxNode(Node n)
+        {
+            
+            Node current = n;
+            Node parent = n;
+            if (n.right == null)
+            {
+                numOfMovies--;
+                return n.movie;
+                
+            }
+           
+            while(current.right != null)
+            {
+                parent = current;
+                current = current.right;
+            }
+            Movie a = current.movie;
+            if ( current.left != null)
+            {
+                parent.right = current.left;
+            }
+            else
+            {
+                parent.right = null;
+            }
+            numOfMovies--;
+            return a;
+        }
         public bool Remove(string title)
         {
             if (root == null)
@@ -148,6 +177,7 @@ namespace CAB301ProjectManageDVDs
                     break;
                 }
             }
+           
            if (!movieExists)
             {
                 Console.WriteLine("No movie with this title is in the collection!");
@@ -164,6 +194,7 @@ namespace CAB301ProjectManageDVDs
                 {
                     int possition = string.Compare(title.ToUpper().Replace(" ", string.Empty),
                         current.movie.name.ToUpper().Replace(" ", string.Empty) );
+                   
                     // go left
                     if (possition == -1)
                     {
@@ -177,8 +208,12 @@ namespace CAB301ProjectManageDVDs
 
                     if (possition == 0)
                     {
+                        if (movieArray.Length == 1)
+                        {
+                            root = null;
+                        }
                         // remove leaf
-                        if(current.left ==null && current.right == null)
+                        if (current.left ==null && current.right == null)
                         {
                             if (left)
                             {
@@ -192,7 +227,7 @@ namespace CAB301ProjectManageDVDs
                             deleted = true;
                             
                         } 
-                        else if (current.left == null && current.right != null)
+                        else if (current.left == null && current.right != null && current != root)
                         {
                             if (left)
                             {
@@ -206,7 +241,7 @@ namespace CAB301ProjectManageDVDs
                             deleted = true;
 
                         }
-                        else if (current.left != null && current.right == null)
+                        else if (current.left != null && current.right == null && current != root)
                         {
                             if (left)
                             {
@@ -220,15 +255,26 @@ namespace CAB301ProjectManageDVDs
                             deleted = true;
 
                         }
+                        else if (current == root)
+                        {
+                            
+                            Movie m = RemoveMaxNode(current.left);
+                           if(current.left.movie == m)
+                            {
+                                current.left = null;
+                            }
+                            root.movie = m;
+                             deleted = true;
+                        }
                         else 
                         {
                             if (left)
                             {
-                                parant.left = current.left;
+                                parant.left.movie = RemoveMaxNode(current.left);
                             }
                             else
                             {
-                                parant.right = current.left;
+                                parant.right.movie = RemoveMaxNode(current.left);
                             }
                             numOfMovies--;
                             deleted = true;
