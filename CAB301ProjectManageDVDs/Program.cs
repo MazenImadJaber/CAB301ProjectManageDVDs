@@ -11,14 +11,24 @@ namespace CAB301ProjectManageDVDs
         static void Main(string[] args)
         {
             MovieCollection DVDS = new MovieCollection();
-      
+         
             Movie a = new Movie("Superman", 1);
+          
+         
+
+
             Movie b = new Movie("Moonlight", 1);
             Movie c = new Movie("Zoroo", 1);
             Movie d = new Movie("Batman", 1);
             Movie e = new Movie("Legally Blode", 1);
+     
             DVDS.Add(a);
+     
+         
+      
             DVDS.Add(c);
+
+
             DVDS.Add(b);
             DVDS.Add(d);
             DVDS.Add(e);
@@ -37,8 +47,15 @@ namespace CAB301ProjectManageDVDs
             DVDS.Add(new Movie("Zoroo", 1));
             DVDS.Add(new Movie("ZZZ", 1));
             DVDS.Add(new Movie("ZZZ", 2));
+            Console.WriteLine("*************************");
+            foreach (Movie m in DVDS.ToArray())
+            {
+                Console.WriteLine(m.ToString());
+            }
+            DVDS.Remove("ZZZ");
 
-
+            DVDS.Remove("123");
+            DVDS.Remove("A");
 
 
             Console.WriteLine("*************************");

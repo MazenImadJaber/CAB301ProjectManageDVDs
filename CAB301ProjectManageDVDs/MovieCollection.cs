@@ -99,12 +99,8 @@ namespace CAB301ProjectManageDVDs
             }
 
         }
-        public bool Remove(Movie movie)
-        {
-            return false;
-        }
 
-        int ii = 0;
+        int  ii = 0;
         public void Deque(Node n, Movie[] movieArray)
         {
 
@@ -118,14 +114,144 @@ namespace CAB301ProjectManageDVDs
             Deque(n.left, movieArray);
             movieArray[ii++]= n.movie;
             Deque(n.right, movieArray);
+
+         
         }
       
         public Movie[] ToArray()
         {
             Movie[] movieArray = new Movie[numOfMovies];
-            Deque(root, movieArray);
+            if(numOfMovies>0)
+            {
+                Deque(root, movieArray);
+                ii = 0;
+            }
+          
                  return movieArray;
         }
+
+        public bool Remove(string title)
+        {
+            if (root == null)
+            {
+                Console.WriteLine("Collection is Empty!");
+                return false;
+            }
+            Movie[] movieArray = ToArray();
+            bool movieExists = false ;
+            foreach (Movie m in movieArray)
+            {
+                if (string.Compare(m.name.ToUpper().Replace(" ",string.Empty)
+                    , title.ToUpper().Replace(" ", string.Empty)) == 0)
+                {
+                    movieExists = true;
+                    break;
+                }
+            }
+           if (!movieExists)
+            {
+                Console.WriteLine("No movie with this title is in the collection!");
+                return false;
+            }
+            else
+            {
+                Node current = root;
+                Node parant = new Node(null);
+                bool deleted = false;
+                 bool left = false;
+
+                do
+                {
+                    int possition = string.Compare(title.ToUpper().Replace(" ", string.Empty),
+                        current.movie.name.ToUpper().Replace(" ", string.Empty) );
+                    // go left
+                    if (possition == -1)
+                    {
+                        parant = current;
+                        current = current.left;
+                        left = true;
+                       
+
+
+                    }
+
+                    if (possition == 0)
+                    {
+                        // remove leaf
+                        if(current.left ==null && current.right == null)
+                        {
+                            if (left)
+                            {
+                                parant.left = null;
+                            }
+                            else
+                            {
+                                parant.right = null;
+                            }
+                            numOfMovies--;
+                            deleted = true;
+                            
+                        } 
+                        else if (current.left == null && current.right != null)
+                        {
+                            if (left)
+                            {
+                                parant.left = current.right;
+                            }
+                            else
+                            {
+                                parant.right = current.right;
+                            }
+                            numOfMovies--;
+                            deleted = true;
+
+                        }
+                        else if (current.left != null && current.right == null)
+                        {
+                            if (left)
+                            {
+                                parant.left = current.left;
+                            }
+                            else
+                            {
+                                parant.right = current.left;
+                            }
+                            numOfMovies--;
+                            deleted = true;
+
+                        }
+                        else 
+                        {
+                            if (left)
+                            {
+                                parant.left = current.left;
+                            }
+                            else
+                            {
+                                parant.right = current.left;
+                            }
+                            numOfMovies--;
+                            deleted = true;
+
+                        }
+                    }
+                    if (possition == 1)
+                    {
+                        parant = current;
+                        current = current.right;
+                        left = false;
+                    }
+
+                } while (!deleted);
+
+                Console.WriteLine("Movie with the \"{0}\" title is now removed from collection", title);
+                return true;
+            }
+           
+            
+
+        }
+
 
         public Movie[] TopTen()
         {
