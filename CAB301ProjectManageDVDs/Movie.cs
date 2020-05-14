@@ -245,8 +245,8 @@ namespace CAB301ProjectManageDVDs
         public string toString()
         {
             string str = string.Format(" Movie name: {0}, Number Of Available Copies: {1}, Genre:{2}, Classification:{3}" +
-                " Dirctor:{4}, Staring:{5}, Duration:{6}min", 
-                title, numberOfAvailableCopies,genre,classification,director,starring,duration);
+                " Dirctor:{4}, Staring:{5}, Duration:{6}min, frequncy:{7}", 
+                title, numberOfAvailableCopies,genre,classification,director,starring,duration,timesBorrowed);
             return str;
 
         }

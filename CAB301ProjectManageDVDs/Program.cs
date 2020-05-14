@@ -20,8 +20,49 @@ namespace CAB301ProjectManageDVDs
             Movie b = new Movie("Moonlight", 1);
             Movie c = new Movie("Zoroo", 1);
             Movie d = new Movie("Batman", 1);
-            Movie e = new Movie("Legally Blode", 1);
-            
+            Movie e = new Movie("Legally Blode", 10);
+            c.Borrow();
+            d.Borrow();
+
+            e.Borrow();
+            e.Borrow();
+            e.Borrow();
+            e.Borrow();
+            e.Borrow();
+            e.Borrow();
+            e.Borrow();
+            e.Borrow();
+            e.Borrow();
+            e.Borrow();
+
+
+            a.Borrow();
+            a.returnMovie();
+            a.Borrow();
+            a.returnMovie();
+            a.Borrow();
+            a.returnMovie();
+            a.Borrow();
+            a.returnMovie();
+            a.Borrow();
+            a.returnMovie();
+            a.Borrow();
+            a.returnMovie();
+            a.Borrow();
+            a.returnMovie();
+            a.Borrow();
+            a.returnMovie();
+
+
+            b.Borrow();
+            b.returnMovie();
+            b.Borrow();
+            b.returnMovie();
+            b.Borrow();
+            b.returnMovie();
+
+      
+
             DVDS.Add(new Movie("Night at the Museum",1,Movie.Genres.Adventure,108, "Ben Stiller","Shawn Dyke",Movie.Classifications.ParentalGuidance));
 
             DVDS.Add(a);
@@ -35,6 +76,26 @@ namespace CAB301ProjectManageDVDs
             DVDS.Add(d);
             DVDS.Add(e);
             DVDS.Add(a);
+
+
+            Console.WriteLine("********top**10*************");
+            int counter = 0;
+            Movie[] movies = DVDS.TopTen();
+            if (movies.Length == 0)
+            {
+                Console.WriteLine("collection is empty!");
+                return;
+            }
+            foreach (Movie m in movies)
+            {
+
+                Console.WriteLine(m.toString());
+                counter++;
+
+
+            }
+
+            Console.ReadKey();
             DVDS.Add(new Movie("A", 1));
             DVDS.Add(new Movie("L", 1));
             DVDS.Add(new Movie("B", 1));
@@ -49,7 +110,6 @@ namespace CAB301ProjectManageDVDs
             DVDS.Add(new Movie("Zoroo", 1));
             DVDS.Add(new Movie("ZZZ", 1));
             DVDS.Add(new Movie("ZZZ", 2));
-
 
             display(DVDS);          
 

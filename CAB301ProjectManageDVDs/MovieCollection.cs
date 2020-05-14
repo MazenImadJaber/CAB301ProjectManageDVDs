@@ -15,7 +15,10 @@ namespace CAB301ProjectManageDVDs
             public Movie movie;
             public Node left;
             public Node right;
-
+            /// <summary>
+            /// Node for BST 
+            /// </summary>
+            /// <param name="movie"></param>
             public Node(Movie movie)
             {
                 this.movie = movie;
@@ -29,10 +32,18 @@ namespace CAB301ProjectManageDVDs
         int numOfMovies = 0;
       
         public Node root;
+        /// <summary>
+        /// empty collection 
+        /// </summary>
         public MovieCollection()
         {
             root = null;
         }
+        /// <summary>
+        /// collection with the root value
+        /// </summary>
+        /// <param name="movie"></param>
+        /// root value 
         public MovieCollection(Movie movie)
         {
             root = new Node(movie);
@@ -45,7 +56,7 @@ namespace CAB301ProjectManageDVDs
         /// <param name="movie"></param>
         public void Add(Movie movie)
         {
-          //  movieArray[numOfMovies] = movie;
+     
 
             if (root == null) // tree is empty 
             {
@@ -101,8 +112,17 @@ namespace CAB301ProjectManageDVDs
 
         }
 
-        int  ii = 0;
-        public void Deque(Node n, Movie[] movieArray)
+
+
+        int  ii = 0; // itroator for array
+        /// <summary>
+        /// Deques nodes in a tree n into an array
+        /// </summary>
+        /// <param name="n"></param>
+        /// tree (root) node
+        /// <param name="movieArray"></param>
+        /// output array 
+        private void Deque(Node n, Movie[] movieArray)
         {
 
             if (n == null)
@@ -118,187 +138,217 @@ namespace CAB301ProjectManageDVDs
 
          
         }
-      
+      /// <summary>
+      /// returns collection as an array
+      /// </summary>
+      /// <returns></returns>
+      /// Movies array
         public Movie[] ToArray()
         {
             Movie[] movieArray = new Movie[numOfMovies];
             if(numOfMovies>0)
             {
                 Deque(root, movieArray);
-                ii = 0;
+                ii = 0; // reset to zero
             }
           
                  return movieArray;
         }
+        /// <summary>
+        /// remove the most right node of a subtree
+        /// </summary>
+        /// <param name="n"></param>
+        /// subtree
+        /// <param name="parent"></param>
+        /// parent of subtree
+        /// <returns></returns>
         private Movie RemoveMaxNode(Node n,Node parent)
         {
             
             Node current = n;
-           
+           // if current node has no right child 
             if (n.right == null)
             {
                 Movie b = current.movie;
+                // remove current 
                 parent.left = null;
 
                 return b;
                 
             }
-           
+           // get most right child
             while(current.right != null)
             {
                 parent = current;
                 current = current.right;
             }
             Movie a = current.movie;
+            // if the most right child has a left child 
             if ( current.left != null)
             {
                 parent.right = current.left;
             }
             else
+
             {
                 parent.right = null;
             }
            
             return a;
         }
+        /// <summary>
+        /// Remove movie given the title
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
         public bool Remove(string title)
         {
+            // if collection is empty 
             if (root == null)
             {
                 Console.WriteLine("Collection is Empty!");
                 return false;
             }
-            Movie[] movieArray = ToArray();
-            bool movieExists = false ;
-            foreach (Movie m in movieArray)
-            {
-                if (string.Compare(m.title.ToUpper().Replace(" ",string.Empty)
-                    , title.ToUpper().Replace(" ", string.Empty)) == 0)
-                {
-                    movieExists = true;
-                    break;
-                }
-            }
-           
-           if (!movieExists)
-            {
-                Console.WriteLine("No movie with this title is in the collection!");
-                return false;
-            }
+            
             else
             {
-                Node current = root;
-                Node parant = new Node(null);
-                bool deleted = false;
-                 bool left = false;
-
-                do
+                Movie[] movieArray = ToArray();
+                bool movieExists = false;
+                foreach (Movie m in movieArray)
                 {
-                    int possition = string.Compare(title.ToUpper().Replace(" ", string.Empty),
-                        current.movie.title.ToUpper().Replace(" ", string.Empty) );
-                   
-                    // go left
-                    if (possition == -1)
+                    if (string.Compare(m.title.ToUpper().Replace(" ", string.Empty)
+                        , title.ToUpper().Replace(" ", string.Empty)) == 0)
                     {
-                        parant = current;
-                        current = current.left;
-                        left = true;
-                       
-
-
+                        movieExists = true;
+                        break;
                     }
+                }
+                // movie is not in the collection 
+                if (!movieExists)
+                {
+                    Console.WriteLine("No movie with this title is in the collection!");
+                    return false;
+                }
+                // movie is in the collection 
+                else
+                {
+                    Node current = root;
+                    Node parant = new Node(null);
+                    bool deleted = false;
+                    bool left = false;
 
-                    if (possition == 0)
+                    do
                     {
-                        if (movieArray.Length == 1)
-                        {
-                            root = null;
-                            numOfMovies--;
-                            deleted = true;
-                        }
-                        else if (current == root)
-                        {
+                        int possition = string.Compare(title.ToUpper().Replace(" ", string.Empty),
+                            current.movie.title.ToUpper().Replace(" ", string.Empty));
 
-                            Movie m = RemoveMaxNode(current.left,current);
-                           
-                            root.movie = m;
-                            deleted = true;
-                            numOfMovies--;
-                        }
-                        // remove leaf
-                        else if (current.left ==null && current.right == null)
+                        // if current is less than title go left
+                        if (possition == -1)
                         {
-                            if (left)
+                            parant = current;
+                            current = current.left;
+                            left = true;
+
+
+
+                        }
+                        // match 
+                        if (possition == 0)
+                        {
+                            // removing the root if its the only element 
+                            if (movieArray.Length == 1)
                             {
-                                parant.left = null;
+                                root = null;
+                                numOfMovies--;
+                                deleted = true;
                             }
+                            // removing the root 
+                            else if (current == root)
+                            {
+
+                                Movie m = RemoveMaxNode(current.left, current);
+
+                                root.movie = m;
+                                deleted = true;
+                                numOfMovies--;
+                            }
+                            // remove leaf
+                            else if (current.left == null && current.right == null)
+                            {
+                                if (left)
+                                {
+                                    parant.left = null;
+                                }
+                                else
+                                {
+                                    parant.right = null;
+                                }
+                                numOfMovies--;
+                                deleted = true;
+
+                            }
+                            // remove node with right child only
+                            else if (current.left == null && current.right != null)
+                            {
+                                if (left)
+                                {
+                                    parant.left = current.right;
+                                }
+                                else
+                                {
+                                    parant.right = current.right;
+                                }
+                                numOfMovies--;
+                                deleted = true;
+
+                            }
+                            // remove node with left child only 
+                            else if (current.left != null && current.right == null)
+                            {
+                                if (left)
+                                {
+                                    parant.left = current.left;
+                                }
+                                else
+                                {
+                                    parant.right = current.left;
+                                }
+                                numOfMovies--;
+                                deleted = true;
+
+                            }
+                            // remove node with two children 
                             else
                             {
-                                parant.right = null;
-                            }
-                            numOfMovies--;
-                            deleted = true;
-                            
-                        } 
-                        else if (current.left == null && current.right != null )
-                        {
-                            if (left)
-                            {
-                                parant.left = current.right;
-                            }
-                            else
-                            {
-                                parant.right = current.right;
-                            }
-                            numOfMovies--;
-                            deleted = true;
+                                if (left)
+                                {
+                                    parant.left.movie = RemoveMaxNode(current.left, current);
+                                }
+                                else
+                                {
+                                    parant.right.movie = RemoveMaxNode(current.left, current);
+                                }
 
+                                deleted = true;
+                                numOfMovies--;
+
+                            }
                         }
-                        else if (current.left != null && current.right == null )
+                        // if current is more than title go left
+                        if (possition == 1)
                         {
-                            if (left)
-                            {
-                                parant.left = current.left;
-                            }
-                            else
-                            {
-                                parant.right = current.left;
-                            }
-                            numOfMovies--;
-                            deleted = true;
-
+                            parant = current;
+                            current = current.right;
+                            left = false;
                         }
-                        
-                        else 
-                        {
-                            if (left)
-                            {
-                                parant.left.movie = RemoveMaxNode(current.left,current);
-                            }
-                            else
-                            {
-                                parant.right.movie = RemoveMaxNode(current.left,current);
-                            }
-                            
-                            deleted = true;
-                            numOfMovies--;
 
-                        }
-                    }
-                    if (possition == 1)
-                    {
-                        parant = current;
-                        current = current.right;
-                        left = false;
-                    }
+                    } while (!deleted); // exist loop when delted is true
 
-                } while (!deleted);
+                    Console.WriteLine("Movie with the \"{0}\" title is now removed from collection", title);
+                    return true;
+                }
 
-                Console.WriteLine("Movie with the \"{0}\" title is now removed from collection", title);
-                return true;
-            }
-           
-            
+            } 
 
         }
 
@@ -307,7 +357,32 @@ namespace CAB301ProjectManageDVDs
         {
 
             Movie[] movies = ToArray();
-            return movies;
+           
+           int  n=movies.Length-2;
+            for (int i = 0; i<=n;i++)
+            {
+                for (int j = 0; j<=n-i;j++)
+                {
+                    if (movies[j+1].timesBorrowed< movies[j].timesBorrowed)
+                    {
+                        Movie temp = movies[j + 1];
+                        movies[j + 1] = movies[j];
+                        movies[j] = temp;
+                    }
+                }
+            }
+            int top = 10;
+            if (movies.Length < 10)
+            {
+                top = movies.Length;
+                Console.WriteLine("only {0} movies are in the collection", top);
+            }
+            Movie[] top10 = new Movie[top];
+            for (int ii =0; ii < top; ii++)
+            {
+                top10[ii] = movies[movies.Length-1-ii];
+            }
+            return top10;
         }
 
     }
