@@ -10,6 +10,9 @@ namespace CAB301ProjectManageDVDs
 {
     class MovieCollection
     {
+        /// <summary>
+        /// Node class for BST
+        /// </summary>
         public class Node
         {
             public Movie movie;
@@ -29,8 +32,8 @@ namespace CAB301ProjectManageDVDs
         }
 
 
-        int numOfMovies = 0;
-      
+        int numOfMovies = 0; // number of movies in the library
+
         public Node root;
         /// <summary>
         /// empty collection 
@@ -56,7 +59,7 @@ namespace CAB301ProjectManageDVDs
         /// <param name="movie"></param>
         public void Add(Movie movie)
         {
-     
+
 
             if (root == null) // tree is empty 
             {
@@ -71,7 +74,7 @@ namespace CAB301ProjectManageDVDs
                 bool added = false;
                 do
                 {
-                    int possition = string.Compare(movie.title,current.movie.title);
+                    int possition = string.Compare(movie.title, current.movie.title);
                     // go left
                     if (possition == -1)
                     {
@@ -114,7 +117,7 @@ namespace CAB301ProjectManageDVDs
 
 
 
-        int  ii = 0; // itroator for array
+        int ii = 0; // itroator for array
         /// <summary>
         /// Deques nodes in a tree n into an array
         /// </summary>
@@ -127,33 +130,37 @@ namespace CAB301ProjectManageDVDs
 
             if (n == null)
             {
-                              
+
                 return;
             }
 
 
             Deque(n.left, movieArray);
-            movieArray[ii++]= n.movie;
-              Deque(n.right, movieArray);
+            movieArray[ii++] = n.movie;
+            Deque(n.right, movieArray);
 
-         
+
         }
-      /// <summary>
-      /// returns collection as an array
-      /// </summary>
-      /// <returns></returns>
-      /// Movies array
+
+
+        /// <summary>
+        /// returns collection as an array
+        /// </summary>
+        /// <returns></returns>
+        /// Movies array
         public Movie[] ToArray()
         {
             Movie[] movieArray = new Movie[numOfMovies];
-            if(numOfMovies>0)
+            if (numOfMovies > 0)
             {
                 Deque(root, movieArray);
                 ii = 0; // reset to zero
             }
-          
-                 return movieArray;
+
+            return movieArray;
         }
+
+
         /// <summary>
         /// remove the most right node of a subtree
         /// </summary>
@@ -162,11 +169,11 @@ namespace CAB301ProjectManageDVDs
         /// <param name="parent"></param>
         /// parent of subtree
         /// <returns></returns>
-        private Movie RemoveMaxNode(Node n,Node parent)
+        private Movie RemoveMaxNode(Node n, Node parent)
         {
-            
+
             Node current = n;
-           // if current node has no right child 
+            // if current node has no right child 
             if (n.right == null)
             {
                 Movie b = current.movie;
@@ -174,17 +181,17 @@ namespace CAB301ProjectManageDVDs
                 parent.left = null;
 
                 return b;
-                
+
             }
-           // get most right child
-            while(current.right != null)
+            // get most right child
+            while (current.right != null)
             {
                 parent = current;
                 current = current.right;
             }
             Movie a = current.movie;
             // if the most right child has a left child 
-            if ( current.left != null)
+            if (current.left != null)
             {
                 parent.right = current.left;
             }
@@ -193,9 +200,11 @@ namespace CAB301ProjectManageDVDs
             {
                 parent.right = null;
             }
-           
+
             return a;
         }
+
+
         /// <summary>
         /// Remove movie given the title
         /// </summary>
@@ -209,7 +218,7 @@ namespace CAB301ProjectManageDVDs
                 Console.WriteLine("Collection is Empty!");
                 return false;
             }
-            
+
             else
             {
                 Movie[] movieArray = ToArray();
@@ -348,22 +357,28 @@ namespace CAB301ProjectManageDVDs
                     return true;
                 }
 
-            } 
+            }
 
         }
 
 
+        /// <summary>
+        /// Use buble sort to sort movies according to frequncey 
+        /// </summary>
+        /// <returns></returns>
+        /// an array of the ten most borrowed movies
         public Movie[] TopTen()
         {
-
+            // get all movies in an array
             Movie[] movies = ToArray();
-           
-           int  n=movies.Length-2;
-            for (int i = 0; i<=n;i++)
+
+            int n = movies.Length - 2;
+            // buble sort
+            for (int i = 0; i <= n; i++)
             {
-                for (int j = 0; j<=n-i;j++)
+                for (int j = 0; j <= n - i; j++)
                 {
-                    if (movies[j+1].timesBorrowed< movies[j].timesBorrowed)
+                    if (movies[j + 1].timesBorrowed < movies[j].timesBorrowed)
                     {
                         Movie temp = movies[j + 1];
                         movies[j + 1] = movies[j];
@@ -371,6 +386,7 @@ namespace CAB301ProjectManageDVDs
                     }
                 }
             }
+            // get the number of elements in output array, defult is 10
             int top = 10;
             if (movies.Length < 10)
             {
@@ -378,9 +394,10 @@ namespace CAB301ProjectManageDVDs
                 Console.WriteLine("only {0} movies are in the collection", top);
             }
             Movie[] top10 = new Movie[top];
-            for (int ii =0; ii < top; ii++)
+            // order from most borrowed to least
+            for (int ii = 0; ii < top; ii++)
             {
-                top10[ii] = movies[movies.Length-1-ii];
+                top10[ii] = movies[movies.Length - 1 - ii];
             }
             return top10;
         }

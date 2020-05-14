@@ -16,24 +16,17 @@ namespace CAB301ProjectManageDVDs
     {
         public enum Genres { Drama, Adventure, Family, Action, SciFi, Comedy, Animated, Thriller, Other };
         public enum Classifications { General, ParentalGuidance, Mature, MatureAccompanied, Unclassified };
+       
         public string title;
-
         public string starring;
-   
-
         public string director;
-     
-
         public int duration;
-      
         public Genres genre;
-    
         public Classifications classification;
-   
         public int numberOfCopies;
         private int numberOfAvailableCopies;
         public int timesBorrowed;
-        
+
 
         /// <summary>
         /// Constructor that takes no arguments, sets name to Untitled 
@@ -101,6 +94,17 @@ namespace CAB301ProjectManageDVDs
             this.genre = Genres.Other;
             this.classification = Classifications.Unclassified;
         }
+        /// <summary>
+        /// movie constructor with title number of copies, genre and classification only 
+        /// </summary>
+        /// <param name="title"></param>
+        /// movie title 
+        /// <param name="numberOfCopies"></param>
+        /// number of copies
+        /// <param name="genre"></param>
+        /// genre from the Genres enum
+        /// <param name="classification"></param>
+        /// classification from the classifications enum 
         public Movie(string title, int numberOfCopies, Genres genre, Classifications classification)
         {
             this.title = title;
@@ -123,37 +127,55 @@ namespace CAB301ProjectManageDVDs
             this.genre = genre;
             this.classification = classification;
         }
-
-            public Movie(string title, int numberOfCopies, Genres genre, int duration,
-                        string starring, string director, Classifications classification)
+        /// <summary>
+        /// constructor with all elements 
+        /// </summary>
+        /// <param name="title"></param>
+        /// movie title 
+        /// <param name="numberOfCopies"></param>
+        /// number of copies to add to library 
+        /// <param name="genre"></param>
+        /// movie genre from the Genres enum
+        /// <param name="duration"></param>
+        /// duration in minutes
+        /// <param name="starring"></param>
+        /// main actor name
+        /// <param name="director"></param>
+        /// director name 
+        /// <param name="classification"></param>
+        /// movie age classifction from Classification enum
+        public Movie(string title, int numberOfCopies, Genres genre, int duration,
+                    string starring, string director, Classifications classification)
+        {
+            this.title = title;
+            if (numberOfCopies > 0)
             {
-                this.title = title;
-                if (numberOfCopies > 0)
-                {
-                    this.numberOfCopies = numberOfCopies;
-                }
-                else
-                {
-                    this.numberOfCopies = 1;
-                    Console.WriteLine("Number of Copies Must be a non-zero " +
-                        "positive number!! \n number is set to 1");
-                }
+                this.numberOfCopies = numberOfCopies;
+            }
+            else
+            {
+                this.numberOfCopies = 1;
+                Console.WriteLine("Number of Copies Must be a non-zero " +
+                    "positive number!! \n number is set to 1");
+            }
 
-                this.timesBorrowed = 0;
-                this.numberOfAvailableCopies = this.numberOfCopies;
-                this.director = director;
-                this.starring = starring;
-                this.duration = duration;
-                this.genre = genre;
-                this.classification = classification;
+            this.timesBorrowed = 0;
+            this.numberOfAvailableCopies = this.numberOfCopies;
+            this.director = director;
+            this.starring = starring;
+            this.duration = duration;
+            this.genre = genre;
+            this.classification = classification;
 
 
-            }/// <summary>
-             /// Borrow this movies 
-             /// </summary>
-             /// <returns></returns>
-             /// returns true if successful
-            public bool Borrow()
+        }
+
+        /// <summary>
+        /// Borrow this movies 
+        /// </summary>
+        /// <returns></returns>
+        /// returns true if successful
+        public bool Borrow()
         {
             if (numberOfAvailableCopies > 0)
             {
@@ -167,7 +189,6 @@ namespace CAB301ProjectManageDVDs
                 return false;
             }
         }
-
 
         /// <summary>
         /// Borrow a number of copies
@@ -191,6 +212,7 @@ namespace CAB301ProjectManageDVDs
             }
         }
 
+
         /// <summary>
         /// Add extra copies 
         /// </summary>
@@ -208,6 +230,7 @@ namespace CAB301ProjectManageDVDs
                 Console.WriteLine("Number of new copies must be a possitve intger!");
             }
         }
+
         /// <summary>
         /// retuen borrowed movie
         /// </summary>
@@ -242,11 +265,26 @@ namespace CAB301ProjectManageDVDs
                 Console.WriteLine("Number of new copies must be a possitve intger!");
             }
         }
+        /// <summary>
+        /// return string represntation for display with all info
+        /// </summary>
+        /// <returns></returns>
         public string toString()
         {
-            string str = string.Format(" Movie name: {0}, Number Of Available Copies: {1}, Genre:{2}, Classification:{3}" +
-                " Dirctor:{4}, Staring:{5}, Duration:{6}min, frequncy:{7}", 
-                title, numberOfAvailableCopies,genre,classification,director,starring,duration,timesBorrowed);
+            string str = string.Format(" Title: {0}, Number Of Copies: {1}, Genre: {2}, Classification: {3}," +
+                " Dirctor: {4}, Staring: {5}, Duration: {6} minutes",
+                title, numberOfAvailableCopies, genre, classification, director, starring, duration, timesBorrowed);
+            return str;
+
+        }
+        /// <summary>
+        /// return string reprenttion with title and frequncey only
+        /// </summary>
+        /// <returns></returns>
+        public string toString10()
+        {
+            string str = string.Format(" Title: {0}, Frequency: {1}",
+                title, timesBorrowed);
             return str;
 
         }

@@ -89,7 +89,7 @@ namespace CAB301ProjectManageDVDs
             foreach (Movie m in movies)
             {
 
-                Console.WriteLine(m.toString());
+                Console.WriteLine(m.toString10());
                 counter++;
 
 
@@ -110,7 +110,24 @@ namespace CAB301ProjectManageDVDs
             DVDS.Add(new Movie("Zoroo", 1));
             DVDS.Add(new Movie("ZZZ", 1));
             DVDS.Add(new Movie("ZZZ", 2));
+            Console.WriteLine("********top**10*************");
+            counter = 0;
+           movies = DVDS.TopTen();
+            if (movies.Length == 0)
+            {
+                Console.WriteLine("collection is empty!");
+                return;
+            }
+            foreach (Movie m in movies)
+            {
 
+                Console.WriteLine(m.toString10());
+                counter++;
+
+
+            }
+
+            Console.ReadKey();
             display(DVDS);          
 
             DVDS.Remove("ZZZ");
