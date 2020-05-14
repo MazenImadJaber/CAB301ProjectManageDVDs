@@ -78,6 +78,9 @@ namespace CAB301ProjectManageDVDs
             display(DVDS);
             DVDS.Remove("Legallyblode");
             display(DVDS);
+            DVDS.Remove("Night at the Museum");
+         
+            display(DVDS);
             DVDS.Remove("jackie");
             display(DVDS);
             DVDS.Remove("helloketty");
@@ -88,6 +91,8 @@ namespace CAB301ProjectManageDVDs
             display(DVDS);
             DVDS.Remove("batman");
             display(DVDS);
+          
+
             Console.ReadKey();
         }
 
@@ -96,14 +101,17 @@ namespace CAB301ProjectManageDVDs
             Console.WriteLine("*************************");
             int counter = 0;
             Movie[] a = DVDS.ToArray();
-            
+            if (a.Length == 0)
+            {
+                Console.WriteLine("collection is empty!");
+                return;
+            }
             foreach (Movie m in a)
             {
-                if (m != null)
-                {
+                
                     Console.WriteLine(m.toString());
                     counter++;
-                }
+              
             
             }
             Console.WriteLine("Counter:{0}", counter);

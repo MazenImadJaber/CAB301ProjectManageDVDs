@@ -214,15 +214,13 @@ namespace CAB301ProjectManageDVDs
                         {
                             root = null;
                             numOfMovies--;
+                            deleted = true;
                         }
                         else if (current == root)
                         {
 
                             Movie m = RemoveMaxNode(current.left,current);
-                            if (current.left.movie == m)
-                            {
-                                current.left = null;
-                            }
+                           
                             root.movie = m;
                             deleted = true;
                             numOfMovies--;
