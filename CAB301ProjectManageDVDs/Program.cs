@@ -21,7 +21,9 @@ namespace CAB301ProjectManageDVDs
             Movie c = new Movie("Zoroo", 1);
             Movie d = new Movie("Batman", 1);
             Movie e = new Movie("Legally Blode", 1);
-     
+            
+            DVDS.Add(new Movie("Night at the Museum",1,Movie.Genres.Adventure,108, "Ben Stiller","Shawn Dyke",Movie.Classifications.ParentalGuidance));
+
             DVDS.Add(a);
      
          
@@ -52,13 +54,18 @@ namespace CAB301ProjectManageDVDs
             display(DVDS);          
 
             DVDS.Remove("ZZZ");
+            display(DVDS);
             DVDS.Remove("123");
+            display(DVDS);
             DVDS.Remove("A");
+            display(DVDS);
             DVDS.Remove("Superman");
             display(DVDS);
 
             DVDS.Remove("Sex and the City 1");
+            display(DVDS);
             DVDS.Remove("Sex and the City 2");
+            display(DVDS);
             DVDS.Remove("Moonlight");
             display(DVDS);
 
@@ -94,7 +101,7 @@ namespace CAB301ProjectManageDVDs
             {
                 if (m != null)
                 {
-                    Console.WriteLine(m.ToString());
+                    Console.WriteLine(m.toString());
                     counter++;
                 }
             
