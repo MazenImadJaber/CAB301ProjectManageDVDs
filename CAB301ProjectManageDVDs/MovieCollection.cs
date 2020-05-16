@@ -115,7 +115,7 @@ namespace CAB301ProjectManageDVDs
 
         }
 
-       
+
         /// <summary>
         /// Deques nodes in a tree n into an array
         /// </summary>
@@ -437,9 +437,9 @@ namespace CAB301ProjectManageDVDs
                 else
                 {
                     Node current = root;
-                  
+
                     bool borrowed = false;
-              
+
 
                     do
                     {
@@ -449,8 +449,8 @@ namespace CAB301ProjectManageDVDs
                         // if current is less than title go left
                         if (possition == -1)
                         {
-                          current = current.left;
-                         
+                            current = current.left;
+
                         }
                         // match 
                         if (possition == 0)
@@ -462,18 +462,68 @@ namespace CAB301ProjectManageDVDs
                         // if current is more than title go left
                         if (possition == 1)
                         {
-                 
+
                             current = current.right;
-                         
+
                         }
 
                     } while (!borrowed); // exist loop when delted is true
 
                     return null;
-                    
+
                 }
 
             }
+        }
+        public void addCpies(string title, int numberOfCopies)
+        {
+            Node current = root;
+
+
+
+
+            do
+            {
+                int possition = string.Compare(title.ToUpper().Replace(" ", string.Empty),
+                    current.movie.title.ToUpper().Replace(" ", string.Empty));
+
+                // if current is less than title go left
+                if (possition == -1)
+                {
+                    if (current.left == null)
+                    {
+                        Console.WriteLine("Unsuccessful!");
+                        break;
+                    }
+                    current = current.left;
+
+                }
+                // match 
+                if (possition == 0)
+                {
+
+                    current.movie.AddCopies(numberOfCopies);
+                    break;
+
+                }
+                // if current is more than title go left
+                if (possition == 1)
+                {
+                    if (current.right == null)
+                    {
+                        Console.WriteLine("Unsuccessful!");
+                        break;
+                    }
+
+                    current = current.right;
+
+                }
+
+            } while (true); // exist loop when delted is true
+
+
+
+
         }
 
     }

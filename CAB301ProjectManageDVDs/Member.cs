@@ -74,8 +74,9 @@ namespace CAB301ProjectManageDVDs
         {
             string str;
             str = firstName + " " + lastName +
-                   " is a registered member, phone number: " + phoneNumber
-                   + " username: " + userName + " Password: " + password;
+                   " phone number: " + phoneNumber
+                   + " username: " + userName + " Password: " + password
+                   + " Residential Address: " + residentialAddress;
             return str;
         }
         /// <summary>

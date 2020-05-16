@@ -16,7 +16,7 @@ namespace CAB301ProjectManageDVDs
         /// <summary>
         /// constructor
         /// </summary>
-        MemberCollection()
+        public MemberCollection()
         {
             staff.userName = "staff";
         }
