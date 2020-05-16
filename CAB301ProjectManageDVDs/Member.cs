@@ -8,44 +8,33 @@ namespace CAB301ProjectManageDVDs
 {
     class Member
     {
-        public bool Staff;
+    
         public string firstName, lastName;
         public string userName;
         public string password;
         public string phoneNumber;
-        MovieCollection borrowedMovies;
+        public string residentialAddress;
+        Movie[] borrowedMovies = new Movie[10];
+        public int numberOfMovies = 0;
+
         /// <summary>
-        /// 
-        /// Memeber Class constructor 
+        /// Memeber constructor given fist and last name, phone number
+        /// residential address and an int Password.
         /// </summary>
-        /// <param name="staff"></param>
-        /// is this member a staff member
-        /// <param name="FirstName"></param>
-        /// first name
-        /// <param name="LastName"></param>
-        /// last name 
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
         /// <param name="phoneNumber"></param>
-        /// phone number in string represntation 
-        public Member(bool staff, string FirstName, String LastName,string phoneNumber)
+        /// <param name="residentialAddress"></param>
+        /// <param name="password"></param>
+        public Member( string firstName, String lastName, string phoneNumber, string residentialAddress,string password)
         {
-            this.Staff = staff;
-            if (staff)
-            {
-                this.firstName = FirstName;
-                this.lastName = LastName;
-                this.phoneNumber = phoneNumber;
-                userName = "staff";
-                password = "today123";
-            }
-            else
-            {
-                this.firstName = FirstName;
-                this.lastName = LastName;
-                this.phoneNumber = phoneNumber;
-                userName = FirstName+LastName;
-                password = "0000";
-                borrowedMovies = new MovieCollection();
-            }
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.phoneNumber = phoneNumber;
+            userName = lastName + firstName;
+            this.password = password;
+            this.residentialAddress= residentialAddress;
+
         }
         /// <summary>
         /// set member password
@@ -84,22 +73,63 @@ namespace CAB301ProjectManageDVDs
         public string toString()
         {
             string str;
-            if (Staff)
+            str = firstName + " " + lastName +
+                   " is a registered member, phone number: " + phoneNumber
+                   + " username: " + userName + " Password: " + password;
+            return str;
+        }
+        /// <summary>
+        /// Borrow a movie from library and add to collection
+        /// </summary>
+        /// <param name="Movie"></param>
+        public void Borrow(Movie Movie)
+        {
+            if (numberOfMovies < 10)
             {
-                 str= firstName + " " + lastName +
-                    " is a staff member, phone number: " + phoneNumber
-                     + " username: " + userName + " Password: " + password;
+                bool unique = true;
+                if (numberOfMovies > 0)
+                {
+                    for(int i = 0; i < numberOfMovies; i++)
+                    {
+                      if(  string.Compare(Movie.title.ToUpper().Replace(" ", string.Empty),
+                          borrowedMovies[i].title.ToUpper().Replace(" ", string.Empty)) == 0)
+                        {
+                            unique = false;
+                        }
+                    }
+                    if (unique)
+                    {
+                        borrowedMovies[numberOfMovies] = new Movie(Movie.title,1,Movie.genre,Movie.duration,
+                            Movie.releaseDate,Movie.releaseDate,Movie.director,Movie.classification);
+                        Console.WriteLine("{0} was successfully borrowed!\n",Movie.title);
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0} is already in your collection!\n", Movie.title);
+                    }
+                }
+     
+                
             }
             else
             {
-                str = firstName + " " + lastName +
-                    " is a registered member, phone number: " + phoneNumber
-                    + " username: " + userName + " Password: " + password;
+                Console.WriteLine("You can only borrow 10 movies at a time!\n return a movie and try again!");
+            } 
 
-            }
-                
-            return str;
         }
+
+        /// <summary>
+        /// Dispalys all borrowed movies to Console
+        /// </summary>
+        public void ListMovies()
+        {
+            foreach(Movie m in borrowedMovies)
+            {
+                Console.WriteLine(m.toString());
+            }
+        }
+
     }
  
 }

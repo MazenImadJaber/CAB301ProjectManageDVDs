@@ -112,7 +112,7 @@ namespace CAB301ProjectManageDVDs
             Movie[] movies = DVDS.TopTen();
             if (movies.Length == 0)
             {
-                Console.WriteLine("collection is empty!");
+                Console.WriteLine("library is empty!");
                 return;
             }
             foreach (Movie m in movies)
