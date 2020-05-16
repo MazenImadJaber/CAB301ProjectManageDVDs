@@ -23,7 +23,7 @@ namespace CAB301ProjectManageDVDs
         public string director;
         public int duration;
         public Genres genre;
-        public int releaseDate;
+        public string releaseDate;
         public Classifications classification;
         public int numberOfCopies;
         private int numberOfAvailableCopies;
@@ -64,6 +64,7 @@ namespace CAB301ProjectManageDVDs
             this.duration = 100;
             this.genre = Genres.Other;
             this.classification = Classifications.Unclassified;
+            this.releaseDate = "unspecified";
         }
 
 
@@ -95,6 +96,7 @@ namespace CAB301ProjectManageDVDs
             this.duration = 100;
             this.genre = Genres.Other;
             this.classification = Classifications.Unclassified;
+            this.releaseDate = "unspecified";
         }
         /// <summary>
         /// movie constructor with title number of copies, genre and classification only 
@@ -107,7 +109,7 @@ namespace CAB301ProjectManageDVDs
         /// genre from the Genres enum
         /// <param name="classification"></param>
         /// classification from the classifications enum 
-        public Movie(string title, int numberOfCopies, Genres genre, Classifications classification)
+        public Movie(string title, int numberOfCopies, Genres genre, Classifications classification, string releaseDate)
         {
             this.title = title;
             if (numberOfCopies > 0)
@@ -128,6 +130,7 @@ namespace CAB301ProjectManageDVDs
             this.duration = 2;
             this.genre = genre;
             this.classification = classification;
+            this.releaseDate = releaseDate;
         }
         /// <summary>
         /// constructor with all elements 
@@ -146,7 +149,7 @@ namespace CAB301ProjectManageDVDs
         /// director name 
         /// <param name="classification"></param>
         /// movie age classifction from Classification enum
-        public Movie(string title, int numberOfCopies, Genres genre, int duration, int releaseDate,
+        public Movie(string title, int numberOfCopies, Genres genre, int duration, string releaseDate,
                     string starring, string director, Classifications classification)
         {
             this.title = title;
@@ -192,6 +195,7 @@ namespace CAB301ProjectManageDVDs
                 return null;
             }
         }
+
 
         /// <summary>
         /// Add extra copies 
@@ -252,11 +256,15 @@ namespace CAB301ProjectManageDVDs
         public string toString()
         {
             string str = string.Format(" Title: {0}, Number Of Copies: {1}, Genre: {2}, Classification: {3}," +
-                " Dirctor: {4}, Staring: {5}, Duration: {6} minutes",
-                title, numberOfAvailableCopies, genre, classification, director, starring, duration, timesBorrowed);
+                " Dirctor: {4}, Staring: {5}, Duration: {6} minutes, Release Date:" +
+                "{7}.",
+                title, numberOfAvailableCopies, genre, classification, director, starring, duration, releaseDate);
+
             return str;
 
         }
+
+
         /// <summary>
         /// return string reprenttion with title and frequncey only
         /// </summary>

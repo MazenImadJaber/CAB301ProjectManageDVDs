@@ -33,7 +33,7 @@ namespace CAB301ProjectManageDVDs
 
 
         int numOfMovies = 0; // number of movies in the library
-
+        int ii = 0; // itroator for array
         public Node root;
         /// <summary>
         /// empty collection 
@@ -115,9 +115,7 @@ namespace CAB301ProjectManageDVDs
 
         }
 
-
-
-        int ii = 0; // itroator for array
+       
         /// <summary>
         /// Deques nodes in a tree n into an array
         /// </summary>
@@ -402,5 +400,76 @@ namespace CAB301ProjectManageDVDs
             return top10;
         }
 
+
+        public Movie borrow(string title)
+        {
+            // if collection is empty 
+            if (root == null)
+            {
+                Console.WriteLine("Collection is Empty!");
+                return null;
+            }
+
+            else
+            {
+                Movie[] movieArray = ToArray();
+                bool movieExists = false;
+                foreach (Movie m in movieArray)
+                {
+                    if (string.Compare(m.title.ToUpper().Replace(" ", string.Empty)
+                        , title.ToUpper().Replace(" ", string.Empty)) == 0)
+                    {
+                        movieExists = true;
+                        break;
+                    }
+                }
+                // movie is not in the collection 
+                if (!movieExists)
+                {
+                    Console.WriteLine("No movie with this title is in the collection!");
+                    return null;
+                }
+                // movie is in the collection 
+                else
+                {
+                    Node current = root;
+                  
+                    bool borrowed = false;
+              
+
+                    do
+                    {
+                        int possition = string.Compare(title.ToUpper().Replace(" ", string.Empty),
+                            current.movie.title.ToUpper().Replace(" ", string.Empty));
+
+                        // if current is less than title go left
+                        if (possition == -1)
+                        {
+                          current = current.left;
+                         
+                        }
+                        // match 
+                        if (possition == 0)
+                        {
+                            borrowed = true;
+                            return current.movie.Borrow();
+
+                        }
+                        // if current is more than title go left
+                        if (possition == 1)
+                        {
+                 
+                            current = current.right;
+                         
+                        }
+
+                    } while (!borrowed); // exist loop when delted is true
+
+                    return null;
+                    
+                }
+
+            }
+        }
     }
 }
