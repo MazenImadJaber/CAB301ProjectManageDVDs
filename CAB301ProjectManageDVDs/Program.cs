@@ -104,7 +104,10 @@ namespace CAB301ProjectManageDVDs
             displayTop10(DVDS);
             Console.ReadKey();
         }
-
+        /// <summary>
+        /// Displays Top10 movies in a collection
+        /// </summary>
+        /// <param name="DVDS"></param>
         private static void displayTop10(MovieCollection DVDS)
         {
             Console.WriteLine("********top**10*************");

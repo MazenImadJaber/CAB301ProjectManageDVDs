@@ -15,16 +15,14 @@ namespace CAB301ProjectManageDVDs
     /// </summary>
     class Movie
     {
-        public enum Genres { Drama, Adventure, Family, Action, SciFi, Comedy, Animated, Thriller, Other };
-        public enum Classifications { General, ParentalGuidance, Mature, MatureAccompanied, Unclassified };
        
         public string title;
         public string starring;
         public string director;
         public int duration;
-        public Genres genre;
+        public string genre;
         public string releaseDate;
-        public Classifications classification;
+        public string classification;
         public int numberOfCopies;
         private int numberOfAvailableCopies;
         public int timesBorrowed;
@@ -43,8 +41,8 @@ namespace CAB301ProjectManageDVDs
             this.director = "unknown";
             this.starring = "unknown";
             this.duration = 100;
-            this.genre = Genres.Other;
-            this.classification = Classifications.Unclassified;
+            this.genre = "Other";
+            this.classification = "Unclassified";
         }
 
 
@@ -62,8 +60,8 @@ namespace CAB301ProjectManageDVDs
             this.director = "unknown";
             this.starring = "unknown";
             this.duration = 100;
-            this.genre = Genres.Other;
-            this.classification = Classifications.Unclassified;
+            this.genre = "Other";
+            this.classification = "Unclassified";
             this.releaseDate = "unspecified";
         }
 
@@ -94,8 +92,8 @@ namespace CAB301ProjectManageDVDs
             this.director = "unknown";
             this.starring = "unknown";
             this.duration = 100;
-            this.genre = Genres.Other;
-            this.classification = Classifications.Unclassified;
+            this.genre = "Other";
+            this.classification ="Unclassified";
             this.releaseDate = "unspecified";
         }
         /// <summary>
@@ -109,7 +107,7 @@ namespace CAB301ProjectManageDVDs
         /// genre from the Genres enum
         /// <param name="classification"></param>
         /// classification from the classifications enum 
-        public Movie(string title, int numberOfCopies, Genres genre, Classifications classification, string releaseDate)
+        public Movie(string title, int numberOfCopies, string genre, string classification, string releaseDate)
         {
             this.title = title;
             if (numberOfCopies > 0)
@@ -140,7 +138,7 @@ namespace CAB301ProjectManageDVDs
         /// <param name="numberOfCopies"></param>
         /// number of copies to add to library 
         /// <param name="genre"></param>
-        /// movie genre from the Genres enum
+        /// movie genre 
         /// <param name="duration"></param>
         /// duration in minutes
         /// <param name="starring"></param>
@@ -148,9 +146,9 @@ namespace CAB301ProjectManageDVDs
         /// <param name="director"></param>
         /// director name 
         /// <param name="classification"></param>
-        /// movie age classifction from Classification enum
-        public Movie(string title, int numberOfCopies, Genres genre, int duration, string releaseDate,
-                    string starring, string director, Classifications classification)
+        /// movie age classifction
+        public Movie(string title, int numberOfCopies, string genre, int duration, string releaseDate,
+                    string starring, string director, string classification)
         {
             this.title = title;
             if (numberOfCopies > 0)

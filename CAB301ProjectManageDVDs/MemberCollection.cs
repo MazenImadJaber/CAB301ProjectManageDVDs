@@ -11,7 +11,7 @@ namespace CAB301ProjectManageDVDs
     {
 
         public int numberOfMembers = 0; // number of members in collection
-        public Member staff = new Member("staff", string.Empty, "1111", "today123"); // regiser staff member
+        public Member staff = new Member("staff", string.Empty, "043211234","123 Street", "today123"); // regiser staff member
         public Member[] members; // array to hold members
         /// <summary>
         /// constructor

@@ -400,7 +400,11 @@ namespace CAB301ProjectManageDVDs
             return top10;
         }
 
-
+        /// <summary>
+        /// marks movie as borrowed and passes a copy of it given it's title 
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
         public Movie borrow(string title)
         {
             // if collection is empty 
