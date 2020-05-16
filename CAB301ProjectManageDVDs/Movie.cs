@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,7 @@ namespace CAB301ProjectManageDVDs
         public string director;
         public int duration;
         public Genres genre;
+        public int releaseDate;
         public Classifications classification;
         public int numberOfCopies;
         private int numberOfAvailableCopies;
@@ -144,7 +146,7 @@ namespace CAB301ProjectManageDVDs
         /// director name 
         /// <param name="classification"></param>
         /// movie age classifction from Classification enum
-        public Movie(string title, int numberOfCopies, Genres genre, int duration,
+        public Movie(string title, int numberOfCopies, Genres genre, int duration, int releaseDate,
                     string starring, string director, Classifications classification)
         {
             this.title = title;
@@ -166,7 +168,7 @@ namespace CAB301ProjectManageDVDs
             this.duration = duration;
             this.genre = genre;
             this.classification = classification;
-
+            this.releaseDate = releaseDate;
 
         }
 
@@ -175,43 +177,21 @@ namespace CAB301ProjectManageDVDs
         /// </summary>
         /// <returns></returns>
         /// returns true if successful
-        public bool Borrow()
+        public Movie Borrow()
         {
             if (numberOfAvailableCopies > 0)
             {
                 numberOfAvailableCopies--;
                 timesBorrowed++;
-                return true;
+                return new Movie(title,1,genre,duration,releaseDate,starring
+                    ,director,classification);
             }
             else
             {
                 Console.WriteLine("No copies are available at the moment! please try again later");
-                return false;
+                return null;
             }
         }
-
-        /// <summary>
-        /// Borrow a number of copies
-        /// </summary>
-        /// <param name="copies"></param>
-        /// number of wanted copies
-        /// <returns></returns>
-        /// returns true if successful
-        public bool Borrow(int copies)
-        {
-            if (numberOfAvailableCopies > 0 && copies <= numberOfAvailableCopies)
-            {
-                numberOfAvailableCopies -= copies;
-                timesBorrowed += copies;
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("there are {0} availabe copies! please try again", numberOfAvailableCopies);
-                return false;
-            }
-        }
-
 
         /// <summary>
         /// Add extra copies 

@@ -13,7 +13,7 @@ namespace CAB301ProjectManageDVDs
         public string userName;
         public string password;
         public string phoneNumber;
-        MovieCollection borrowedMovies = new MovieCollection();
+        MovieCollection borrowedMovies;
         /// <summary>
         /// 
         /// Memeber Class constructor 
@@ -44,6 +44,7 @@ namespace CAB301ProjectManageDVDs
                 this.phoneNumber = phoneNumber;
                 userName = FirstName+LastName;
                 password = "0000";
+                borrowedMovies = new MovieCollection();
             }
         }
         /// <summary>
@@ -80,7 +81,7 @@ namespace CAB301ProjectManageDVDs
         /// string represntation of member object
         /// </summary>
         /// <returns></returns>
-        public string ToString()
+        public string toString()
         {
             string str;
             if (Staff)
