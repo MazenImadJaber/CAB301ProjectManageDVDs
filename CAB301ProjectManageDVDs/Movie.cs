@@ -261,6 +261,16 @@ namespace CAB301ProjectManageDVDs
             return str;
 
         }
+        public string toStringMember()
+        {
+            string str = string.Format(" Title: {0}\n Number Of Copies: {1}\n Genre: {2}\n Classification: {3}\n" +
+                " Dirctor: {4}\n Staring: {5}\n Duration: {6} minutes\n Release Date:" +
+                "{7}\n \n\n",
+                title, numberOfAvailableCopies, genre, classification, director, starring, duration, releaseDate);
+
+            return str;
+
+        }
 
 
         /// <summary>

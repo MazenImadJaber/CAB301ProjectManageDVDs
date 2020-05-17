@@ -526,5 +526,57 @@ namespace CAB301ProjectManageDVDs
 
         }
 
+
+        public void returnMovie(string title)
+        {
+            Node current = root;
+
+
+
+
+            do
+            {
+                int possition = string.Compare(title.ToUpper().Replace(" ", string.Empty),
+                    current.movie.title.ToUpper().Replace(" ", string.Empty));
+
+                // if current is less than title go left
+                if (possition == -1)
+                {
+                    if (current.left == null)
+                    {
+                        Console.WriteLine("Unsuccessful! Movie not in library");
+                        break;
+                    }
+                    current = current.left;
+
+                }
+                // match 
+                if (possition == 0)
+                {
+
+                    
+                    current.movie.returnMovie();
+                    break;
+
+                }
+                // if current is more than title go left
+                if (possition == 1)
+                {
+                    if (current.right == null)
+                    {
+                          Console.WriteLine("Unsuccessful! Movie not in library");
+                        break;
+                    }
+
+                    current = current.right;
+
+                }
+
+            } while (true); // exist loop when delted is true
+
+
+
+
+        }
     }
 }

@@ -104,14 +104,14 @@ namespace CAB301ProjectManageDVDs
             if (numberOfMembers > 0)
             {
 
-                foreach (Member m in members)
+                
+                for(int i =0; i < numberOfMembers; i++)
                 {
-                    if (string.Compare(userName.ToLower(), m.userName.ToLower()) == 0)
+                    if (string.Compare(userName.ToLower(), members[i].userName.ToLower()) == 0)
                     {
-                        m.Borrow(movie);
+                        members[i].Borrow(movie);
                         return;
                     }
-
                 }
                 Console.WriteLine("{0} is not registered!", userName);
             }
@@ -147,5 +147,9 @@ namespace CAB301ProjectManageDVDs
                 Console.WriteLine("Memeber Collection is empty!");
             }
         }
+
+
+
+
     }
 }

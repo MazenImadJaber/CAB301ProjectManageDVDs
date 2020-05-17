@@ -14,7 +14,7 @@ namespace CAB301ProjectManageDVDs
         public string password;
         public string phoneNumber;
         public string residentialAddress;
-        Movie[] borrowedMovies = new Movie[10];
+        public Movie[] borrowedMovies = new Movie[10];
         public int numberOfMovies = 0;
 
         /// <summary>
@@ -87,27 +87,37 @@ namespace CAB301ProjectManageDVDs
         {
             if (numberOfMovies < 10)
             {
-                bool unique = true;
-                if (numberOfMovies > 0)
+                
+                if (numberOfMovies >= 0)
                 {
-                    for(int i = 0; i < numberOfMovies; i++)
+                    bool unique = true;
+                    if (numberOfMovies > 0)
                     {
-                      if(  string.Compare(Movie.title.ToUpper().Replace(" ", string.Empty),
-                          borrowedMovies[i].title.ToUpper().Replace(" ", string.Empty)) == 0)
+                        for (int i = 0; i < numberOfMovies; i++)
                         {
-                            unique = false;
+                            if (string.Compare(Movie.title.ToUpper().Replace(" ", string.Empty),
+                                borrowedMovies[i].title.ToUpper().Replace(" ", string.Empty)) == 0)
+                            {
+                                unique = false;
+                            }
                         }
                     }
-                    if (unique)
+                    
+                    if (unique && Movie != null)
                     {
                         borrowedMovies[numberOfMovies] = new Movie(Movie.title,1,Movie.genre,Movie.duration,
                             Movie.releaseDate,Movie.releaseDate,Movie.director,Movie.classification);
+                        numberOfMovies++;
                         Console.WriteLine("{0} was successfully borrowed!\n",Movie.title);
 
                     }
                     else
                     {
-                        Console.WriteLine("{0} is already in your collection!\n", Movie.title);
+                        if (Movie != null)
+                        {
+                            Console.WriteLine("{0} is already in your collection!\n", Movie.title);
+                        }
+                        
                     }
                 }
      
@@ -120,15 +130,63 @@ namespace CAB301ProjectManageDVDs
 
         }
 
+        public bool Retrun(string title, out string titleOut)
+        {
+            if (numberOfMovies == 0)
+            {
+                Console.WriteLine("You Have no movie in your collection!");
+                titleOut = title;
+                return false;
+            }
+            else
+            {
+                int index=0;
+                bool borrowed = false;
+                foreach(Movie m in borrowedMovies)
+                {
+                    if(string.Compare(title, m.title) == 0)
+                    {
+                        borrowed = true;
+                        break;
+                    }
+                    index++;
+                }
+                if (borrowed)
+                {
+                    for (int i = index; i < borrowedMovies.Length - 1; i++)
+                    {
+                        borrowedMovies[i] = borrowedMovies[i + 1];
+                    }
+                    titleOut = title;
+                    numberOfMovies--;
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("the title you have entred does not match any movie you've borrowed.");
+                    titleOut = title;
+                    return false;
+                }
+            }
+        }
+
         /// <summary>
         /// Dispalys all borrowed movies to Console
         /// </summary>
         public void ListMovies()
         {
-            foreach(Movie m in borrowedMovies)
+            if (numberOfMovies == 0)
             {
-                Console.WriteLine(m.toString());
+                Console.WriteLine("Your movie collection is empty");
             }
+            else
+            {
+                for(int i =0; i<numberOfMovies;i++)
+                {
+                    Console.WriteLine(borrowedMovies[i].toStringMember());
+                }
+            }
+         
         }
 
     }

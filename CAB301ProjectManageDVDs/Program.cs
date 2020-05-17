@@ -63,6 +63,41 @@ namespace CAB301ProjectManageDVDs
 
                         } 
                     }
+                    if(key == 2)
+                    {
+                        Console.Write("Enter username:  ");
+                        string userName = Console.ReadLine();
+                        bool exists = false;
+                        string password= null;
+                        int index=0;
+                        foreach(Member m in members.members)
+                        {
+                            if(string.Compare(m.userName,userName)==0)
+                            {
+                                exists = true;
+                                password = m.password;
+                                break;
+                            }
+                            index++;
+                        }
+                        if (exists)
+                        {
+                           
+                            Console.Write("Enter password:  ");
+                            if (string.Compare(password, Console.ReadLine()) == 0)
+                            {
+                                userMenu(ref DVDS, ref members, index);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Password is incorrect!");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Username is invlaid or member is not registered.");
+                        }
+                    }
                 }
                else
                 {
@@ -73,6 +108,84 @@ namespace CAB301ProjectManageDVDs
             }
 
             
+        }
+
+        private static void userMenu(ref MovieCollection DVDS, ref MemberCollection members, int index)
+        {
+            bool exist = false;
+            while (!exist)
+            {
+                Console.Write("\n\n" +
+                            "=================User Menu==================\n" +
+                            "1. Display all movies.\n" +
+                            "2. Borrow a movie.\n" +
+                            "3. Return a movie.\n" +
+                            "4. Display all borrowed movies.\n" +
+                            "5. Display top 10 movies.\n" + 
+                            "0. return to main menu.\n" +
+                            "===========================================\n" +
+                            "Please make a Selection(1-5, or 0 to exist):"); 
+                int key;
+                if (int.TryParse(Console.ReadLine(), out key) && key < 6)
+                {
+                    if(key == 0)
+                    {
+                        exist = true;
+                    }
+                    if(key == 1)
+                    {
+                        display(DVDS);
+                    }
+                    if (key == 2)
+                    {
+                        Console.Write("Enter movie title: ");
+                        string title= Console.ReadLine();
+                        bool unique= true;
+                        foreach(Movie m in members.members[index].borrowedMovies)
+                        {
+                            if(m != null)
+                            {
+                                if (string.Compare(m.title, title) == 0)
+                                {
+                                    unique = false;
+                                }
+                            }
+                        }
+
+                        if (unique)
+                        {
+                            members.Borrow(members.members[index].userName, DVDS.borrow(title));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Movies is already borrowed");
+                        }
+                    }
+                    if(key == 3)
+                    {
+                        Console.Write("Enter movie title: ");
+                        string title;
+                        while (!members.members[index].Retrun(Console.ReadLine(), out title)
+                            && members.members[index].numberOfMovies!=0)
+                        {
+                            Console.Write("Enter movie title: ");
+                        }
+                        DVDS.returnMovie(title);
+                    }
+                    if(key == 4)
+                    {
+                        members.members[index].ListMovies();
+                    }
+                    if(key == 5)
+                    {
+                        displayTop10(DVDS);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("invalid input");
+                }
+            }
         }
 
         private static void staffMenu( ref MovieCollection DVDS, ref MemberCollection members)
@@ -137,102 +250,73 @@ namespace CAB301ProjectManageDVDs
                         if (movieExists)
                         {
                             Console.WriteLine("Movie aleady exists!");
-                            Console.Write("Enter number of copies: ");
-                           
-                            if(int.TryParse(Console.ReadLine(),out numberOfCopies))
-                            {
-                                DVDS.addCpies(title, numberOfCopies);
-                            }
-                            else
+                            Console.Write("Enter number of copies: ");                            
+                            while (!int.TryParse(Console.ReadLine(), out numberOfCopies))
                             {
                                 Console.WriteLine("invalid input");
+                                Console.Write("Enter number of copies: ");
                             }
+                            DVDS.addCpies(title, numberOfCopies);
 
 
                         }
                         else
                         {
                             Console.Write("Enter number of copies: ");
-
-                            if (int.TryParse(Console.ReadLine(), out numberOfCopies))
-                            {
-                                Console.Write("Enter release date (year): ");
-                                releaseDate = Console.ReadLine();
-                                Console.Write("Enter Starring actor/s: ");
-                                starring = Console.ReadLine();
-                                Console.Write("Enter Director/s: ");
-                                director= Console.ReadLine();
-                                Console.Write("Enter Duration (minutes): ");
-                                if(int.TryParse(Console.ReadLine(), out duration))
-                                {
-                                    Console.WriteLine("Select Genre: ");
-                                    int i = 1;
-                                    foreach(string g in Genres)
-                                    {
-                                        Console.WriteLine(i+". "+g);
-                                        i++;
-                                    }
-                                    Console.Write("Enter selection(1-{0}): ",Genres.Length);
-                                    int selction;
-                                    if (int.TryParse(Console.ReadLine(), out selction))
-                                    {
-                                        if (selction <= Genres.Length)
-                                        {
-                                            genre = Genres[selction - 1];
-
-                                            Console.WriteLine("Select Classifaction: ");
-                                            i = 1;
-                                            foreach (string c in Classifications)
-                                            {
-                                                Console.WriteLine(i + ". " + c);
-                                                i++;
-                                            }
-                                            Console.Write("Enter selection(1-{0}): ",Classifications.Length);
-                                            if (int.TryParse(Console.ReadLine(), out selction))
-                                            {
-                                                if (selction <= Classifications.Length)
-                                                {
-                                                    classification = Classifications[selction - 1];
-                                                    DVDS.Add(new Movie(title, numberOfCopies, genre, duration, releaseDate, starring,
-                                                        director, classification));
-                                                }
-                                                else
-                                                {
-                                                    Console.WriteLine("invalid input");
-                                                }
-                                                
-                                            }
-                                            else
-                                            {
-                                                Console.WriteLine("invalid input");
-                                            }
-
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("invalid input");
-                                        }
-                                        
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("invalid input");
-                                    }
-
-                                }
-                                else
-                                {
-                                    Console.WriteLine("invalid input");
-                                }
-                            }
-                            else
+                            while (!int.TryParse(Console.ReadLine(), out numberOfCopies))
                             {
                                 Console.WriteLine("invalid input");
+                                Console.Write("Enter number of copies: ");
                             }
+                            Console.Write("Enter release date (year): ");
+                            releaseDate = Console.ReadLine();
+                            Console.Write("Enter Starring actor/s: ");
+                            starring = Console.ReadLine();
+                            Console.Write("Enter Director/s: ");
+                            director = Console.ReadLine();
+                            Console.Write("Enter Duration (minutes): ");
+                            while (!int.TryParse(Console.ReadLine(), out duration))
+                            {
+                                Console.WriteLine("invalid input");
+                                Console.Write("Enter Duration (minutes): ");
+                            }
+                            Console.WriteLine("Select Genre: ");
+                            int i = 1;
+                            foreach (string g in Genres)
+                            {
+                                Console.WriteLine(i + ". " + g);
+                                i++;
+                            }
+
+                            Console.Write("Enter selection(1-{0}): ", Genres.Length);
+                            int selction;
+                            while (!int.TryParse(Console.ReadLine(), out selction) || selction > Genres.Length)
+                            {
+                                Console.WriteLine("invalid input");
+                                Console.Write("Enter selection(1-{0}): ", Genres.Length);
+                            }
+                            genre = Genres[selction - 1];
                             
 
 
-
+                            Console.WriteLine("Select Classifaction: ");
+                            i = 1;
+                            foreach (string c in Classifications)
+                            {
+                                Console.WriteLine(i + ". " + c);
+                                i++;
+                            }
+                            selction = Classifications.Length;
+                            Console.Write("Enter selection(1-{0}): ", Classifications.Length);
+                            while (!int.TryParse(Console.ReadLine(), out selction) || selction > Classifications.Length)
+                            {
+                                Console.WriteLine("invalid input");
+                                Console.Write("Enter selection(1-{0}): ", Classifications.Length);
+                            }
+                            classification = Classifications[selction - 1];
+                            DVDS.Add(new Movie(title, numberOfCopies, genre, duration, releaseDate, starring,
+                                                        director, classification));
+                                              
                         }
                     }
                     if (key == 2)
@@ -246,11 +330,52 @@ namespace CAB301ProjectManageDVDs
                     }
                     if (key == 4)
                     {
-                        //todo regestor member
+                        Console.Write("Enter First name: ");
+                        firstName = Console.ReadLine().Replace(" ",string.Empty);
+
+                        Console.Write("Enter last name: ");
+                        lastName = Console.ReadLine().Replace(" ", string.Empty);
+
+                        Console.Write("Enter Contact number: ");
+                        int number;
+                        while(!int.TryParse(Console.ReadLine(),out number))
+                        {
+                            Console.WriteLine("invalid input");
+                            Console.Write("Enter Contact number: ");
+                        }
+                        phoneNumber = number.ToString();
+
+                        Console.Write("Enter Address: ");
+                        residentialAddress = Console.ReadLine();
+
+                       
+                        string input;
+                        int psw;
+                        bool successful = false;
+                        do
+                        {
+                            Console.Write("Enter Password(4 digit integer): ");
+                            input = Console.ReadLine();
+                            if(input.Length==4 && int.TryParse(input,out psw))
+                            {
+                                successful = true;
+                            }else
+                            {
+                                Console.WriteLine("invalid input");
+                            }
+                        } while (!successful);
+
+                        password = input;
+
+                        members.Register(firstName, lastName, phoneNumber, residentialAddress, password);
+
                     }
                     if (key == 5)
                     {
-                        // Find a registered member's phone number
+
+                        Console.Write("Enter username(Last Name + First Name): ");
+                        members.FindContactNumber(Console.ReadLine());
+                       
                     }
                     if (key == 6)
                     {
@@ -289,7 +414,7 @@ namespace CAB301ProjectManageDVDs
         /// <param name="DVDS"></param>
         private static void displayTop10(MovieCollection DVDS)
         {
-            Console.WriteLine("********top**10*************");
+            Console.WriteLine("\n\n===================Top 10==================" );
             int counter = 0;
             Movie[] movies = DVDS.TopTen();
             if (movies.Length == 0)
@@ -309,12 +434,12 @@ namespace CAB301ProjectManageDVDs
 
 
         /// <summary>
-        /// 
+        /// Dispaly movies in collection
         /// </summary>
         /// <param name="DVDS"></param>
         private static void display(MovieCollection DVDS)
         {
-            Console.WriteLine("*************************");
+            Console.WriteLine("\n\n===========================================");
 
             Movie[] a = DVDS.ToArray();
             if (a.Length == 0)
