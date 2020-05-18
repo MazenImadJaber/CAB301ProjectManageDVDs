@@ -556,6 +556,8 @@ namespace CAB301ProjectManageDVDs
 
                     
                     current.movie.returnMovie();
+                   
+
                     break;
 
                 }

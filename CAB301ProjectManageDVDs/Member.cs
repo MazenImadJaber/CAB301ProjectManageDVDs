@@ -85,6 +85,11 @@ namespace CAB301ProjectManageDVDs
         /// <param name="Movie"></param>
         public void Borrow(Movie Movie)
         {
+            if (Movie == null)
+            {
+                Console.WriteLine("Unsuccessful");
+                return;
+            }
             if (numberOfMovies < 10)
             {
                 
@@ -106,7 +111,7 @@ namespace CAB301ProjectManageDVDs
                     if (unique && Movie != null)
                     {
                         borrowedMovies[numberOfMovies] = new Movie(Movie.title,1,Movie.genre,Movie.duration,
-                            Movie.releaseDate,Movie.releaseDate,Movie.director,Movie.classification);
+                            Movie.releaseDate,Movie.starring,Movie.director,Movie.classification);
                         numberOfMovies++;
                         Console.WriteLine("{0} was successfully borrowed!\n",Movie.title);
 
@@ -142,9 +147,9 @@ namespace CAB301ProjectManageDVDs
             {
                 int index=0;
                 bool borrowed = false;
-                foreach(Movie m in borrowedMovies)
+                for (int i = 0; i < numberOfMovies; i++)
                 {
-                    if(string.Compare(title, m.title) == 0)
+                    if(string.Compare(title, borrowedMovies[i].title) == 0)
                     {
                         borrowed = true;
                         break;

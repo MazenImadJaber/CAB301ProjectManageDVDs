@@ -290,7 +290,7 @@ namespace CAB301ProjectManageDVDs
 
                             Console.Write("Enter selection(1-{0}): ", Genres.Length);
                             int selction;
-                            while (!int.TryParse(Console.ReadLine(), out selction) || selction > Genres.Length)
+                            while (!int.TryParse(Console.ReadLine(), out selction) || selction > Genres.Length || selction <=0)
                             {
                                 Console.WriteLine("invalid input");
                                 Console.Write("Enter selection(1-{0}): ", Genres.Length);
@@ -308,7 +308,7 @@ namespace CAB301ProjectManageDVDs
                             }
                             selction = Classifications.Length;
                             Console.Write("Enter selection(1-{0}): ", Classifications.Length);
-                            while (!int.TryParse(Console.ReadLine(), out selction) || selction > Classifications.Length)
+                            while (!int.TryParse(Console.ReadLine(), out selction) || selction > Classifications.Length || selction <= 0)
                             {
                                 Console.WriteLine("invalid input");
                                 Console.Write("Enter selection(1-{0}): ", Classifications.Length);
@@ -336,14 +336,25 @@ namespace CAB301ProjectManageDVDs
                         Console.Write("Enter last name: ");
                         lastName = Console.ReadLine().Replace(" ", string.Empty);
 
-                        Console.Write("Enter Contact number: ");
+                        
                         int number;
-                        while(!int.TryParse(Console.ReadLine(),out number))
+                        string contractnumber;
+                        bool successful = false;
+                        do
                         {
-                            Console.WriteLine("invalid input");
                             Console.Write("Enter Contact number: ");
-                        }
-                        phoneNumber = number.ToString();
+                            contractnumber = Console.ReadLine();
+                            if(int.TryParse(contractnumber,out number))
+                            {
+
+                                successful = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("invalid input");
+                            }
+                        } while (!successful);
+                        phoneNumber = contractnumber;
 
                         Console.Write("Enter Address: ");
                         residentialAddress = Console.ReadLine();
@@ -351,7 +362,7 @@ namespace CAB301ProjectManageDVDs
                        
                         string input;
                         int psw;
-                        bool successful = false;
+                         successful = false;
                         do
                         {
                             Console.Write("Enter Password(4 digit integer): ");
